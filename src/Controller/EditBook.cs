@@ -16,7 +16,11 @@ public static class BookEditor
                               "| Введите оператор из [0-5] | \n" +
                               "+---------------------------+ \n");
             int choice = InputHelper.RequestInt("Оператор");
-            int index = InputHelper.RequestIndexBooks(books.Count);
+            int index = 0;
+            if (choice != 0)
+            {
+                index = InputHelper.RequestIndexBooks(books.Count);
+            }
             switch (choice)
             {
                 case 0:
