@@ -1,4 +1,5 @@
 ﻿using ConsoleApp3.Helpers;
+using ConsoleApp3.EditBook;
 namespace ConsoleApp3;
 
 class ControllerBook
@@ -38,7 +39,7 @@ class ControllerBook
                               "[7] Удалить книгу. \n" +
                               "[0] Выйти из программы. \n" +
                               "[-] Введите оператор из \"[]\" слева от нужного вам действия: ");
-            int choice = InputHelper.RequestNumber();
+            int choice = InputHelper.RequestInt("Оператор");
             SelectionHandler(choice);
         }
     }
@@ -54,9 +55,14 @@ class ControllerBook
                 ShowByPages();
                 break;
             case 3:
+                    BookEditor.EditBookHandler(_books);
                 break;
             case 4 or 5:
                 ToogleBookStatus(choice);
+                break;
+            case 6:
+                _books.Add(BookEditor.CreateNewBook());
+                EnterToContinue();
                 break;
             case 0:
                 _programEnd = true;
@@ -66,6 +72,8 @@ class ControllerBook
                 break;
         }
     }
+    
+    
 
     private void ShowAllBooks()
     {
@@ -133,8 +141,7 @@ class ControllerBook
     private void ToogleBookStatus(int handler)
     {
         Console.WriteLine("Введите номер книги из списка (индекс)");
-        int index = InputHelper.RequestNumber();
-        InputHelper.TryRequestIndexBooks(index, _books.Count);
+        int index = InputHelper.RequestIndexBooks(_books.Count);
         switch (handler)
         {
             case 4:

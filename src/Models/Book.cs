@@ -1,5 +1,5 @@
 ﻿using ConsoleApp3.Helpers;
-class Book : IEquatable<Book>
+public class Book : IEquatable<Book>
 {
     public string Name          { get; private set; }
     public string Author        { get; private set; }

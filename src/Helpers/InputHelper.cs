@@ -22,11 +22,11 @@ public static class InputHelper
         return index;
     }
     
-    public static int RequestNumber()
+    public static int RequestInt(string field = "Число")
     {
         while (true)
         {
-            Console.WriteLine("Введите число: ");
+            Console.WriteLine($"Введите '{field}': ");
             string input = Console.ReadLine();
             try
             {
@@ -35,15 +35,50 @@ public static class InputHelper
             catch (ArgumentException e)
             {
                 Console.WriteLine(e);
-                Thread.Sleep(5000);
+                Thread.Sleep(2500);
             }
         }
     }
 
-    public static int TryRequestIndexBooks(int index, int maxCount)
+    public static string RequestString(string field = "Значение")
     {
         while (true)
         {
+            Console.WriteLine($"Введите '{field}'");
+            string input = Console.ReadLine();
+            try
+            {
+                return ValidateString(input, field);
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e);
+                Thread.Sleep(2500);
+            }
+        }
+    }
+
+    public static bool RequestBool(string fieldTrue = "Доступна", string fieldFalse = "Не доступна")
+    {
+        while (true)
+        {
+            Console.WriteLine($"Введите чтобы пометить как | w - {fieldTrue} | e - {fieldFalse}");
+            string input = RequestString("[w/e]");
+            string choice = input.ToLowerInvariant();
+            if (choice == "w")
+                return true;
+            if (choice == "e")
+                return false;
+            Console.WriteLine("Ошибка: введите 'w' или 'e'. Попробуйте снова.");
+        }
+    }
+
+    public static int RequestIndexBooks(int maxCount, string field = "Книги")
+    {
+        while (true)
+        {
+            Console.WriteLine($"Введите индекс '{field}'");
+            int index = RequestInt("Индекс");
             try
             {
                 return ValidateIndexBooks(index, maxCount);
